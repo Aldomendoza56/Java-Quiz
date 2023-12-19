@@ -37,3 +37,22 @@ body {
     cursor: pointer;
     border-radius: 1rem;
 }
+.high-score {
+    grid-column: span 2;
+    color: white;
+    background-color: transparent;
+    border: 2px solid white;
+    padding: .5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+.timer {
+    justify-content: center;
+    align-items: center;
+}
+button:hover { 
+    background-color: #c4bdbd; 
+}
