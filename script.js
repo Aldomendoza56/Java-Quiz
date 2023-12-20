@@ -1,6 +1,7 @@
 var remainingTime = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
-
+var questionElement = document.getElementById('question')
+var answerButtonsElement = document.getElementById('answer-buttons')
 function countdown() {
     var secondsLeft = 90;
   
@@ -18,7 +19,7 @@ function countdown() {
         secondsLeft--;
       } else {
         // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-        remainingTime.textContent = '';
+        remainingTime.textContent = 'GAME OVER!!';
         // Use `clearInterval()` to stop the timer
         clearInterval(timer);
         // Call the `displayMessage()` function
@@ -27,5 +28,20 @@ function countdown() {
     }, 1000);
   }
   countdown();
+function showQuestion(question){
+    questionElement.innerText = question.question
+}
 
+
+var questions = [
+    {
+    question: 'Which one is a string?',
+    answers: [
+        {text: 'var name = John', correct: true},
+        { text: '27', correct: false },
+        {text: 'class= body', correct: false},
+        {text: 'oranges', correct: false}
+    ]
+    }
+]
   
