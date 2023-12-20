@@ -11,18 +11,13 @@
 
     <div class="container">
         <header>
+            <div class="timer1">
+                <h2 id="countdown"></h2>
+                <p id="main"></p>
+            </div>
             <a href="./highscore.html">
                 <button class=high-score id="high-scorer"> View High Scores</button>
             </a>
-
-            <div class="timer">
-                <p>
-                    Remaining Time:
-                    <span id="time">
-                        0
-                    </span>
-                </p>
-            </div>
         </header>
        <h1> Java Quiz</h1>
        <h2>The First Question?</h2>
@@ -32,7 +27,7 @@
  <input type="checkbox" id="thefirstanswer">
 
  <label for="thesecondanswer">(B) The Second Answer</label>
- <input type="checkbox" id="theSecondanswer">
+ <input type="checkbox" id="thesecondanswer">
 
  <label for="thethirdanswer">(C) The Third Answer</label>
  <input type="checkbox" id="thethirdanswer">
@@ -43,5 +38,6 @@
  <button class="button" type="submit">Submit Answer</button>
     </div>
 </div>
+    <script src="script.js"></script>
 </body>
 </html>
