@@ -10,6 +10,7 @@ body {
 }
 
 .container {
+    max-width: 80%;
     background-color: rgb(19, 167, 167);
     padding: 3rem;
     border-radius: 1rem;
@@ -18,10 +19,11 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    box-shadow: 0 0 10px 2px;
 }
 .form {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: span 2;
     row-gap: 1rem;
     column-gap: 2rem;
     justify-content: center;
@@ -36,6 +38,9 @@ body {
     font-weight: bold;
     cursor: pointer;
     border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .high-score {
     grid-column: span 2;
@@ -55,4 +60,28 @@ body {
 }
 button:hover { 
     background-color: #c4bdbd; 
+}
+
+.answers {
+    width: 250px;
+    display: grid;
+    padding: 10px 20px;
+    margin: 10px 0;
+    gap: 5px;
+
+}
+.answera:hover {
+    border-color: black;
+}
+
+.button.correct {
+    color: green;
+}
+
+.button.wrong {
+    color: red;
+}
+
+.hide {
+    display: none;
 }

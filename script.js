@@ -1,7 +1,12 @@
 var remainingTime = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
+var questionContainerElement = document.getElementById('question-container')
 var questionElement = document.getElementById('question')
 var answerButtonsElement = document.getElementById('answer-buttons')
+var submitButton = document.getElementById('submit-button');
+
+let shuffledQuestions, currentQuestionIndex
+
 function countdown() {
     var secondsLeft = 90;
   
@@ -23,25 +28,77 @@ function countdown() {
         // Use `clearInterval()` to stop the timer
         clearInterval(timer);
         // Call the `displayMessage()` function
-        displayMessage();
       }
     }, 1000);
   }
+
   countdown();
-function showQuestion(question){
-    questionElement.innerText = question.question
+
+  function quizStarter() {
+  questionContainerElement.classList.remove('hide')
+  shuffledQuestions = questions.sort(() => Math.random() - .5)
+  currentQuestionIndex = 0
+  questionContainerElement.classList.remove('hide')
+  setNextQuestion()
 }
 
+function setNextQuestion() {
+  showQuestion(shuffledQuestions[currentQuestionIndex])
+}
+
+function showQuestion(question){
+    questionElement.innerText = question.question
+    answerButtonsElement.innerHTML = '';
+    question.answers.forEach(answer => {
+      var button = document.createElement('button')
+      button.innerText = answer.text
+      button.classList.add('button.correct')
+      if (answer.correct) {
+        button.dataset.correct = answer.correct
+      }
+      button.addEventListener('click', selectAnswer)
+      answerButtonsElement.appendChild(button)
+    })
+}
+
+function selectAnswer(e) {
+  var selectedButton = e.target
+  var correct = selectedButton.dataset.correct
+  setStatusClass(document.body, correct)
+  Array.from(answerButtonsElement.children).forEach(button => {
+    setStatusClass(button, button.dataset.correct)
+  })
+  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    submitButton.classList.remove('hide')
+  } else {
+    submitButton.innerText = 'Restart'
+    submitButton.classList.remove('hide')
+    }
+  }
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element)
+  if (correct) {
+    element.classList.add('button.correct');
+  } else {
+    element.classList.add('button.wrong');
+    }
+  }
+
+function clearStatusClass(element) {
+  element.classList.remove('button.correct')
+  element.classList.remove('button.wrong')
+}
 
 var questions = [
     {
     question: 'Which one is a string?',
     answers: [
         {text: 'var name = John', correct: true},
-        { text: '27', correct: false },
+        {text: '27', correct: false },
         {text: 'class= body', correct: false},
         {text: 'oranges', correct: false}
     ]
-    }
+  }
 ]
-  
+document.getElementById('submit-button').addEventListener('click', quizStarter);

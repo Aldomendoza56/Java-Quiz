@@ -8,35 +8,32 @@
     <stlye></stlye>
 </head>
 <body>
-
     <div class="container">
-        <header>
-            <div class="timer1">
-                <h2 id="countdown"></h2>
-                <p id="main"></p>
-            </div>
-            <a href="./highscore.html">
-                <button class=high-score id="high-scorer"> View High Scores</button>
-            </a>
-        </header>
-       <h1> Java Quiz</h1>
-       <h2 id="question"></h2>
-        <div class="form">
-            
- <label for="thefirstanswer">(A) The First Answer</label>
- <input type="checkbox" id="thefirstanswer">
-
- <label for="thesecondanswer">(B) The Second Answer</label>
- <input type="checkbox" id="thesecondanswer">
-
- <label for="thethirdanswer">(C) The Third Answer</label>
- <input type="checkbox" id="thethirdanswer">
-
- <label for="thefourthanswer">(D) The Fourth Answer</label>
- <input type="checkbox" id="thefourthanswer">
-
- <button class="button" type="submit">Submit Answer</button>
+    <header>
+        <div class="timer1">
+            <h2 id="countdown"></h2>
+            <p id="main"></p>
+        </div>
+        <a href="./highscore.html">
+            <button class=high-score id="high-scorer"> View High Scores</button>
+        </a>
+    </header>
+    <h1> Java Quiz</h1>
+    <h2></h2>
+     <div>
+        <div id="question-container" class="hide">
+            <div class="controls">
+         <div id="question">Question</div>
+         <div id="answer-buttons" class="answers">
+            <button >answer 1</button>
+            <button >answer 2</button>
+            <button >answer 3</button>
+            <button >answer 4</button>
+         </div>
+        </div>
     </div>
+        <button class="submit button button" id="submit-button">Submit Answer</button>
+    </div> 
 </div>
     <script src="script.js"></script>
 </body>
