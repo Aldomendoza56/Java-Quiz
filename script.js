@@ -22,7 +22,9 @@ function countdown() {
         // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
         remainingTime.textContent = secondsLeft + 'seconds left!';
         secondsLeft--;
-      } else {
+      }
+      
+      else {
         // Once `timeLeft` gets to 0, set `timerEl` to an empty string
         remainingTime.textContent = 'GAME OVER!!';
         // Use `clearInterval()` to stop the timer
@@ -30,9 +32,15 @@ function countdown() {
         // Call the `displayMessage()` function
       }
     }, 1000);
+    document.getElementById('incorrect').addEventListener('click', function() {
+      sec -= 25;
+      document.getElementById('timerDisplay').innerHTML='00:'+sec;
+  });
+  startTimer();
   }
 
   countdown();
+
 
   function quizStarter() {
   questionContainerElement.classList.remove('hide')
