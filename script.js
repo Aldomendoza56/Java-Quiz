@@ -51,7 +51,7 @@ function countdown() {
         remainingTime.textContent = secondsLeft + 'seconds left!';
         secondsLeft--;
       }
-      
+    
       else {
         // Once `timeLeft` gets to 0, set `timerEl` to an empty string
         remainingTime.textContent = 'GAME OVER!!';
@@ -61,9 +61,11 @@ function countdown() {
       }
     }, 1000);
   }
-    
-    
-  countdown();
+  document.getElementById('answer-buttons').addEventListener('click', function() {
+    remainingTime-= 5;
+    document.getElementById('timerDisplay').innerHTML='00:'+ remainingTime;
+});
+countdown();
 
 // This starts the quiz//
   function quizStarter() {
@@ -91,7 +93,7 @@ function showQuestion(question) {
       answerButtonsElement.appendChild(button);
   });
 }
-
+//this function plug the answers into the function
 function selectAnswer(e) {
   var selectedButton = e.target
   var correct = selectedButton.dataset.correct;
