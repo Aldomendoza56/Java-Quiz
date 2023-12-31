@@ -70,16 +70,16 @@ button:hover {
     gap: 5px;
 
 }
-.answera:hover {
+.answers:hover {
     border-color: black;
 }
 
 .button.correct {
-    color: green;
+    background-color: green;
 }
 
 .button.wrong {
-    color: red;
+    background-color: red;
 }
 
 .hide {
