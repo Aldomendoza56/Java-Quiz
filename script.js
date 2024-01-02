@@ -1,170 +1,311 @@
-//variables need to go on the top of the page
-// var timeRemaining = document.getElementById('countdown')
-// var mainEl = document.getElementById ('main')
-// var questionContainerEl = document.getElementById('question-container')
-// var questionElement = document.getElementById('answer-buttons')
+// script.js 
+// We are going to start our JavaScript with our the questions we are going to plugin later on
+let questions = [ 
+	{ 
+		prompt: `Which one of these is an array?`, 
+		options: [ 
+			"bar john - 32", 
+			"pizza is awesome", 
+			"52", 
+			"var john = 27" 
+		], 
+		answer: "var john = 27", 
+	}, 
+
+	{ 
+		prompt: `What does CSS stand for?`, 
+		options: [ 
+			"Carrol Simpson Sister", 
+			"Carrot Style Shirt", 
+			"Cascading Style Sheet", 
+			"Cascading Smile ShipS", 
+		], 
+		answer: "Cascading Style Sheet", 
+	}, 
+
+	{ 
+		prompt: `What is JavaScript used for`, 
+		options: [ 
+			"Used to create interactive webpages", 
+			"A type of coffee", 
+			"A computer brand", 
+			"A kind of entree", 
+		], 
+		answer: "Used to create interactive webpages", 
+	}, 
+
+	{ 
+		prompt: `What does the DOM stand for?`, 
+		options: ["Danger Object Mirror", "Document Object Model", "Dinner On Mat", "Dancing On Mirrors"], 
+		answer: "Document Object Model", 
+	}, 
+
+	{ 
+		prompt: `What is the local storage`, 
+		options: [ 
+			"Data Storage", 
+			"A place for people's stuff", 
+			"Where we write our HTML", 
+			"Style our webpage", 
+		], 
+		answer: "Data Storage", 
+	}, 
+]; 
+
+// here we are grabbing our elements from our HTML 
 
 
+let questionsEl = 
+	document.querySelector( 
+		"#questions"
+	); 
+let timerEl = 
+	document.querySelector("#timer"); 
+let choicesEl = 
+	document.querySelector("#options"); 
+let submitBtn = document.querySelector( 
+	"#submit-score"
+); 
+let startBtn = 
+	document.querySelector("#start"); 
+let nameEl = 
+	document.querySelector("#name"); 
+let feedbackEl = document.querySelector( 
+	"#feedback"
+); 
+let reStartBtn = 
+	document.querySelector("#restart"); 
+
+// Quiz's initial state 
+let currentQuestionIndex = 0; 
+let time = questions.length * 15; 
+let timerId; 
+
+// Here we are starting are quiz and hiding our initial landing page so the questions are visible
+
+function quizStart() { 
+	timerId = setInterval( 
+		clockTick, 
+		1000 
+	); 
+	timerEl.textContent = time; 
+	let landingScreenEl = 
+		document.getElementById( 
+			"start-screen"
+		); 
+	landingScreenEl.setAttribute( 
+		"class", 
+		"hide"
+	); 
+	questionsEl.removeAttribute( 
+		"class"
+	); 
+	getQuestion(); 
+} 
+
+// Loop through array of questions and 
+// Answers and create list with buttons 
+function getQuestion() { 
+	let currentQuestion = 
+		questions[currentQuestionIndex]; 
+	let promptEl = 
+		document.getElementById( 
+			"question-words"
+		); 
+	promptEl.textContent = 
+		currentQuestion.prompt; 
+	choicesEl.innerHTML = ""; 
+	currentQuestion.options.forEach( 
+		function (choice, i) { 
+			let choiceBtn = 
+				document.createElement( 
+					"button"
+				); 
+			choiceBtn.setAttribute( 
+				"value", 
+				choice 
+			); 
+			choiceBtn.textContent = 
+				i + 1 + ". " + choice; 
+			choiceBtn.onclick = 
+				questionClick; 
+			choicesEl.appendChild( 
+				choiceBtn 
+			); 
+		} 
+	); 
+} 
+
+// In this function we are checking our answers and making they are correct if not we are going to deduct 15 secconds from the current timer like we stated on the landing page 
 
 
+function questionClick() { 
+	if ( 
+		this.value !== 
+		questions[currentQuestionIndex] 
+			.answer 
+	) { 
+		time -= 15; 
+		if (time < 0) { 
+			time = 0; 
+		} 
+		timerEl.textContent = time; 
+		feedbackEl.textContent = `Wrong! The correct answer was 
+		${questions[currentQuestionIndex].answer}.`; 
+		feedbackEl.style.color = "red"; 
+	} else { 
+		feedbackEl.textContent = 
+			"Correct!"; 
+		feedbackEl.style.color = 
+			"green"; 
+	} 
+	feedbackEl.setAttribute( 
+		"class", 
+		"feedback"
+	); 
+	setTimeout(function () { 
+		feedbackEl.setAttribute( 
+			"class", 
+			"feedback hide"
+		); 
+	}, 2000); 
+	currentQuestionIndex++; 
+	if ( 
+		currentQuestionIndex === 
+		questions.length 
+	) { 
+		quizEnd(); 
+	} else { 
+		getQuestion(); 
+	} 
+} 
 
-// function countdown() {
-//   var timeLeft = 90;
+// End quiz by hiding questions, 
+// Stop timer and show final score 
 
-//   var timeInterval = setInterval( function() {
-//     if(timeLeft > 1) {
-//       timeRemaining.textContent = timeLeft + ' seconds remaining';
-//       timeLeft--;
-//     } else if (timeLeft ===1) {
-//       timeRemaining.timeContext = timeLeft + 'seconds Remaining';
-//       timeLeft--;
-//     } else {
-//       timeRemaining.textcontext = 'Game Over!';
-//       clearInterval(timeInterval);
-//       displayMessage();
-//     }
-//   }, 1000);
-// }
-var remainingTime = document.getElementById('countdown');
-var mainEl = document.getElementById('main');
-var questionContainerElement = document.getElementById('question-container')
-var questionElement = document.getElementById('question')
-var answerButtonsElement = document.getElementById('answer-buttons')
-var submitButton = document.getElementById('submit-button');
-//var startButton = document.querySelector(".start-button");
+function quizEnd() { 
+	clearInterval(timerId); 
+	let endScreenEl = 
+		document.getElementById( 
+			"quiz-end"
+		); 
+	endScreenEl.removeAttribute( 
+		"class"
+	); 
+	let finalScoreEl = 
+		document.getElementById( 
+			"score-final"
+		); 
+	finalScoreEl.textContent = time; 
+	questionsEl.setAttribute( 
+		"class", 
+		"hide"
+	); 
+} 
 
-let shuffledQuestions, currentQuestionIndex
+// This function is checking the timer and making it hits 0 before we could call the quizEnd() function to end the quiz
 
-function countdown() {
-    var secondsLeft = 90;
-  
-    // We need to create a function to make sure our timer works
-    var timer = setInterval(function () {
-      // As long as the `timeLeft` is greater than 1
-      if (secondsLeft > 1) {
-        // Set the `textContent` of `timerEl` to show the remaining seconds
-        remainingTime.textContent = secondsLeft + ' seconds left!';
-        // Decrement `timeLeft` by 1
-        secondsLeft--;
-      } else if (secondsLeft === 1) {
-        // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-        remainingTime.textContent = secondsLeft + 'seconds left!';
-        secondsLeft--;
-      }
-    
-      else {
-        // Once `timeLeft` gets to 0, set `timerEl` to an empty string
-        remainingTime.textContent = 'GAME OVER!!';
-        // Use `clearInterval()` to stop the timer
-        clearInterval(timer);
-        // Call the `displayMessage()` function
-      }
-    }, 1000);
-  }
-  document.getElementById('answer-buttons').addEventListener('click', function() {
-    remainingTime-= 5;
-    document.getElementById('timerDisplay').innerHTML='00:'+ remainingTime;
-});
-countdown();
+function clockTick() { 
+	time--; 
+	timerEl.textContent = time; 
+	if (time <= 0) { 
+		quizEnd(); 
+	} 
+} 
 
-// This starts the quiz//
-  function quizStarter() {
-  questionContainerElement.classList.remove('hide')
-  shuffledQuestions = questions.sort(() => Math.random() - .5)
-  currentQuestionIndex = 0
-  questionContainerElement.classList.remove('hide')
-  setNextQuestion()
-}
-//this allows the user to go to the next question//
-function setNextQuestion() {
-  showQuestion(shuffledQuestions[currentQuestionIndex])
-}
+// Here we are introducing our local storage and storing the persons name and score
+// Along with users' name 
 
-// this function is plugging the question into the webpage
-function showQuestion(question) {
-  questionElement.innerText = question.question;
-  answerButtonsElement.innerHTML = '';
-  question.answers.forEach(answer => {
-      var button = document.createElement('button');
-      button.innerText = answer.text;
-      button.classList.add(answer.correct ? 'button.correct' : 'button.wrong');
-      button.dataset.correct = answer.correct;
-      button.addEventListener('click', selectAnswer);
-      answerButtonsElement.appendChild(button);
-  });
-}
-//this function plug the answers into the function
-function selectAnswer(e) {
-  var selectedButton = e.target
-  var correct = selectedButton.dataset.correct;
-  setClassStatus(document.body, correct);
-  Array.from(answerButtonsElement.children).forEach(button => {
-      setClassStatus(button, button.dataset.correct);
-  });
-  if (shuffledQuestions.length > currentQuestionIndex + 1) {
-      submitButton.classList.remove('hide');
-  } else {
-      submitButton.innerText = 'Restart';
-      submitButton.classList.remove('hide');
-  }
-}
+function saveHighscore() { 
+	let name = nameEl.value.trim(); 
+	if (name !== "") { 
+		let highscores = 
+			JSON.parse( 
+				window.localStorage.getItem( 
+					"highscores"
+				) 
+			) || []; 
+		let newScore = { 
+			score: time, 
+			name: name, 
+		}; 
+		highscores.push(newScore); 
+		window.localStorage.setItem( 
+			"highscores", 
+			JSON.stringify(highscores) 
+		); 
+		alert( 
+			"Your Score has been Submitted"
+		); 
+	} 
+} 
 
-function setClassStatus(element, correct) {
-  clearStatusClass(element);
-  if (correct) {
-    element.classList.add('correct')
-  } else {
-    element.classList.add('wrong')
-  }
-}
-  //element.classList.add(correct ? 'button.correct' : 'button.wrong');
+// Save users' score after pressing enter 
 
+function checkForEnter(event) { 
+	if (event.key === "Enter") { 
+		saveHighscore(); 
+    // this alert is letting the player know that their score was submitted and stored in local storage.
+		alert( 
+			"Your Score has been Submitted"
+		); 
+	} 
+} 
+nameEl.onkeyup = checkForEnter; 
 
+// Save users' score but only after they click the button thats why the "onclick" is added
 
-function clearStatusClass(element) {
-  element.classList.remove('correct')
-  element.classList.remove('wrong')
-}
+submitBtn.onclick = saveHighscore; 
 
-var questions = [
-    {
-    question: 'Which one is a string?',
-    answers: [
-        {text: 'var name = John', correct: true},
-        {text: '27', correct: false },
-        {text: 'class= body', correct: false},
-        {text: 'oranges', correct: false},
-    ]
-  }
-  ,{
-  question: 'Which one of these is true about local storage?',
-  answers: [
-  {text: 'local storage is a location', correct: false},
-  {text: 'local storage is pizza', correct: false },
-  {text: 'local storage is used to store data', correct: true},
-  {text: 'local storage is confusing', correct: false}
-  ]
- }
- ,{
-  question: 'What is the DOM?',
-  answers: [
-  {text: 'A person from a the Fast and Furious', correct: false},
-  {text: 'Data Outburst Meta', correct: false },
-  {text: 'Donut Object Monster', correct: false},
-  {text: 'Document Object Model', correct: true}
-  ]
- }
- ,{
-  question: 'What is the benefit of a setInterval?',
-  answers: [
-  {text: 'It is used to track time', correct: true},
-  {text: 'It is used to time track', correct: false },
-  {text: 'It does not exist', correct: false},
-  {text: 'It used for time travel in the multiverse', correct: false}
-  ]
- }
+// here the same process is being used as the previous line of code 
 
+startBtn.onclick = quizStart;
+// highScore.js 
 
+let scoresBtn = document.querySelector( 
+	"#view-high-scores"
+); 
 
-]
-document.getElementById('submit-button').addEventListener('click', quizStarter)
+// IN order to make sure the scores are being submitted properly we are storing them in order by how they are submitted
+
+function printHighscores() { 
+	let highscores = 
+		JSON.parse( 
+			window.localStorage.getItem( 
+				"highscores"
+			) 
+		) || []; 
+	highscores.sort(function (a, b) { 
+		return b.score - a.score; 
+	}); 
+	highscores.forEach(function ( 
+		score 
+	) { 
+		let liTag = 
+			document.createElement( 
+				"li"
+			); 
+		liTag.textContent = 
+			score.name + 
+			" - " + 
+			score.score; 
+		let olEl = 
+			document.getElementById( 
+				"highscores"
+			); 
+		olEl.appendChild(liTag); 
+	}); 
+} 
+
+// Not only is the user going to be able to store their scores but they are also going to have the ability to clear any recent scores 
+function clearHighscores() { 
+	window.localStorage.removeItem( 
+		"highscores"
+	); 
+	window.location.reload(); 
+} 
+document.getElementById( 
+	"clear"
+).onclick = clearHighscores; 
+
+printHighscores();

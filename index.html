@@ -7,35 +7,76 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <stlye></stlye>
 </head>
-<body>
-    <div class="container">
-    <header>
-        
-        <div class="timer1">
-            <h2 id="countdown"></h2>
-            <p id="main"></p>
-        </div>
-        <a href="./highscore.html">
-            <button class=high-score id="high-scorer"> View High Scores</button>
-        </a>
-    </header>
-    <h1> Java Quiz</h1>
-    <h2></h2>
-     <div>
-        <div id="question-container" class="hide">
-            <div class="controls">
-         <div id="question">Question</div>
-         <div id="answer-buttons" class="answers">
-            <button class="button.wrong" >answer 1</button>
-            <button >answer 2</button>
-            <button >answer 3</button>
-            <button >answer 4</button>
-         </div>
-        </div>
-    </div>
-        <button class="submit button button" id="submit-button">Start Quiz</button>
+<body class="background-color">
+
+    <div class="containerNew"> 
+        <header> 
+            <div> 
+                <a href="./highscore.html"> 
+                    <button class="scores-header" 
+                            id="view-high-scores"> 
+                        High Scores 
+                    </button> 
+                </a> 
+            </div> 
+  
+            <div class="timer"> 
+                <p> 
+                    Time: 
+                    <span id="timer"> 
+                        0 
+                    </span> 
+                </p> 
+            </div> 
+        </header> 
+  
+        <main class="quiz"> 
+            <div id="quiz-start"> 
+                <div class="landing" 
+                     id="start-screen"> 
+                    <h1 id="top"> 
+                        JavaScript Quiz Challenge
+                    </h1> 
+                    <h1> 
+                        By Aldo Mendoza 
+                    </h1> 
+                    <p> 
+                        Welcome to my JavaScript quiz challenge hope you enjoy my application as much as I enjoyed created it
+                    </p> 
+                    <button id="start"> 
+                        Start Quiz 
+                    </button> 
+                </div> 
+            </div> 
+  
+            <div class="hide" id="questions"> 
+                <h2 id="question-words"></h2> 
+                <div class="options" id="options"> 
+                </div> 
+            </div> 
+  
+            <div class="hide" id="quiz-end"> 
+                <h2>All Done!</h2> 
+                <p>Your final score is: 
+                    <span id="score-final"> 
+                    </span> 
+                </p> 
+                <p> 
+                    Please enter your name: 
+                    <input type="text" 
+                           id="name" 
+                           max="3" /> 
+                    <button id="submit-score"> 
+                        Submit 
+                    </button> 
+                </p> 
+            </div> 
+  
+            <div id="feedback" 
+                 class="feedback hide"> 
+            </div> 
+        </main> 
     </div> 
-</div>
     <script src="script.js"></script>
 </body>
 </html>
