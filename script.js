@@ -1,4 +1,3 @@
-// script.js 
 // We are going to start our JavaScript with our the questions we are going to plugin later on
 let questions = [ 
 	{ 
